@@ -8,7 +8,7 @@ module ActiveRecord
             AR_CAS = ::ActiveRecord::ConnectionAdapters
 
             connection = ActiveRecord::Base.connection
-            using_pg = connection.class.to_s == "#{AR_CAS}::PostgreSQLAdapter"
+            using_pg = %W[#{AR_CAS}::PostgreSQLAdapter #{AR_CAS}::PostGISAdapter].include? connection.class.to_s
             if using_pg
               Rails.logger.info do
                 'Applying Postgres Constraints patches to ActiveRecord'
