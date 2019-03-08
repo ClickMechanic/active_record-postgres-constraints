@@ -27,7 +27,7 @@ module ActiveRecord
 
         def pg?
           config = ActiveRecord::Base.connection_config
-          return true if config && 'postgresql' == config[:adapter]
+          return true if config && %w(postgis postgresql).include?(config[:adapter])
 
           Rails.logger.warn do
             'Not applying Postgres Constraints patches to ActiveRecord ' \
